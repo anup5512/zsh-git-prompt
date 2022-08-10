@@ -101,19 +101,19 @@ for st in status:
             branch, rest = st[2].strip().split('...')
             if len(rest.split(' ')) > 0:
                 remote_branch = rest.split(' ')[0]
-                # pass
-            else:
-                # ahead or behind
-                divergence = ' '.join(rest.split(' ')[1:])
-                divergence = divergence.lstrip('[').rstrip(']')
-                for div in divergence.split(', '):
-                    if 'ahead' in div:
-                        num_ahead = int(div[len('ahead '):].strip())
-                        ahead = '%s%s' % (symbols['ahead of'], num_ahead)
-                    elif 'behind' in div:
-                        num_behind = int(div[len('behind '):].strip())
-                        behind = '%s%s' % (symbols['behind'], num_behind)
-                remote = ''.join([behind, ahead])
+                #pass
+            
+            # ahead or behind
+            divergence = ' '.join(rest.split(' ')[1:])
+            divergence = divergence.lstrip('[').rstrip(']')
+            for div in divergence.split(', '):
+                if 'ahead' in div:
+                    num_ahead = int(div[len('ahead '):].strip())
+                    ahead = '%s%s' % (symbols['ahead of'], num_ahead)
+                elif 'behind' in div:
+                    num_behind = int(div[len('behind '):].strip())
+                    behind = '%s%s' % (symbols['behind'], num_behind)
+            remote = ''.join([behind, ahead])
     elif st[0] == '?' and st[1] == '?':
         untracked.append(st)
     else:
