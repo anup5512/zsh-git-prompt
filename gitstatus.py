@@ -83,6 +83,7 @@ untracked, staged, changed, conflicts = [], [], [], []
 num_ahead, num_behind = 0, 0
 ahead, behind = '', ''
 branch = ''
+remote_branch = ''
 remote = ''
 status = [(line[0], line[1], line[2:]) for line in stdout.decode('utf-8').splitlines()]
 for st in status:
@@ -98,9 +99,9 @@ for st in status:
         else:
             # current and remote branch info
             branch, rest = st[2].strip().split('...')
-            if len(rest.split(' ')) == 1:
-                # remote_branch = rest.split(' ')[0]
-                pass
+            if len(rest.split(' ')) > 0:
+                remote_branch = rest.split(' ')[0]
+                # pass
             else:
                 # ahead or behind
                 divergence = ' '.join(rest.split(' ')[1:])
@@ -137,6 +138,7 @@ if python_version == 2:
 
 out = ' '.join([
     branch,
+    remote_branch,
     remote,
     to_str(num_ahead),
     to_str(num_behind),
